@@ -1,0 +1,83 @@
+{
+  "nav": {
+    "skills": "Skills",
+    "experience": "Experience",
+    "education": "Education",
+    "contact": "Contact"
+  },
+  "hero": {
+    "badge": "Available for freelance",
+    "title1": "FULL STACK",
+    "title2": "DEVELOPER",
+    "sub": "Passionate about building modern web & mobile apps. Specialized in Laravel, Vue.js, Flutter & NestJS with 7+ years of experience.",
+    "cta_primary": "View my work",
+    "cta_secondary": "Contact me",
+    "years": "Years",
+    "projects": "Projects",
+    "companies": "Companies"
+  },
+  "skills": {
+    "label": "What I master",
+    "title": "SKILLS",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "database": "Database & DevOps",
+    "data_infra": "Data & Infrastructure",
+    "mobile": "Mobile & CMS",
+    "mobile_platforms": "Mobile & Platforms",
+    "languages": "Languages",
+    "programming": "Programming",
+    "design": "Design & Analysis",
+    "other": "Other Skills"
+  },
+  "experience": {
+    "label": "My professional journey",
+    "title": "EXPERIENCE",
+    "lead_dev": "Lead Developer Full Stack",
+    "lead_mobile": "Lead Developer Mobile & Web Full Stack",
+    "fullstack_js": "Full Stack JS Developer — Technical Lead",
+    "fullstack": "Full Stack Developer",
+    "android_web": "Android & Web Developer",
+    "freelance": "Freelance / Remote",
+    "feed_desc": "Zoho Sign integration for e-signatures, Docker deployment, accounting workflow automation",
+    "nurses_desc": "Unique e-ticketing system, robust API with Symfony/API Platform, Docker + CI/CD DevOps",
+    "voomgle_desc": "Flutter app (chat, calls, registrations), SIV API integration, vehicle management web platform",
+    "centralcare_desc": "Isomatrix user system, Amazon S3 API, casl/ability security",
+    "twifone_desc": "Twilio integration, messaging system backend/frontend, Isomatrix",
+    "affilie_desc": "Diagnostic module, Vuetify, performance optimization",
+    "soxim_desc": "Laravel 9 — Web application",
+    "pezane_desc": "Laravel API, payment management, delivery, referral system",
+    "sharemyhobbies_desc": "Social network, Laravel API, Ionic/Angular app, Git-flow"
+  },
+  "education": {
+    "label": "My academic background",
+    "title": "EDUCATION",
+    "master": "Master II",
+    "cs": "Computer Science",
+    "diploma": "Professional diploma",
+    "app_dev": "App Development",
+    "bac": "Baccalaureate — Series D",
+    "sciences": "Sciences",
+    "brevet": "Secondary Certificate"
+  },
+  "languages": {
+    "label": "International communication",
+    "title": "LANGUAGES",
+    "fr_level": "Fluent",
+    "en_level": "Intermediate",
+    "it_level": "Basic",
+    "mg_level": "Native"
+  },
+  "contact": {
+    "label": "Let's work together",
+    "title": "CONTACT",
+    "description": "Available for freelance projects, collaborations, or full-time positions. Feel free to reach out!",
+    "location_label": "Location",
+    "cta_title": "READY TO COLLABORATE?",
+    "cta_desc": "Need an experienced Full Stack developer for your next project?",
+    "cta_btn": "Start a project",
+    "years_label": "Years experience",
+    "projects_label": "Projects delivered",
+    "languages_label": "Languages spoken"
+  }
+}

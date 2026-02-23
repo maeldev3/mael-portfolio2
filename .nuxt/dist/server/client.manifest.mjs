@@ -1,0 +1,1 @@
+export { default } from "file:///home/lala/Downloads/claude%20caude/recent/portfolio-ismael/node_modules/@nuxt/vite-builder/dist/runtime/client.manifest.mjs"

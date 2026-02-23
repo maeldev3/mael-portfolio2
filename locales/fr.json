@@ -1,0 +1,83 @@
+{
+  "nav": {
+    "skills": "Compétences",
+    "experience": "Expérience",
+    "education": "Formation",
+    "contact": "Contact"
+  },
+  "hero": {
+    "badge": "Disponible pour freelance",
+    "title1": "FULL STACK",
+    "title2": "DEVELOPER",
+    "sub": "Passionné par la création d'applications web & mobile modernes. Spécialisé Laravel, Vue.js, Flutter et NestJS avec +7 ans d'expérience.",
+    "cta_primary": "Voir mes projets",
+    "cta_secondary": "Me contacter",
+    "years": "Années",
+    "projects": "Projets",
+    "companies": "Entreprises"
+  },
+  "skills": {
+    "label": "Ce que je maîtrise",
+    "title": "COMPÉTENCES",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "database": "Database & DevOps",
+    "data_infra": "Data & Infrastructure",
+    "mobile": "Mobile & CMS",
+    "mobile_platforms": "Mobile & Platforms",
+    "languages": "Languages",
+    "programming": "Programming",
+    "design": "Design & Analyse",
+    "other": "Other Skills"
+  },
+  "experience": {
+    "label": "Mon parcours professionnel",
+    "title": "EXPÉRIENCE",
+    "lead_dev": "Lead Developer Full Stack",
+    "lead_mobile": "Lead Developer Mobile & Web Full Stack",
+    "fullstack_js": "Développeur Full Stack JS — Encadreur technique",
+    "fullstack": "Développeur Full Stack",
+    "android_web": "Développeur Android & Web",
+    "freelance": "Freelance / Remote",
+    "feed_desc": "Intégration Zoho Sign pour signatures électroniques, déploiement Docker, automatisation workflows comptables",
+    "nurses_desc": "Système billetterie électronique unique, API robuste avec Symfony/API Platform, DevOps Docker + CI/CD",
+    "voomgle_desc": "Application Flutter (chat, appels, immatriculations), intégration API SIV, plateforme web de gestion véhicules",
+    "centralcare_desc": "Système utilisateur Isomatrix, API Amazon S3, sécurité casl/ability",
+    "twifone_desc": "Intégration Twilio, système messagerie backend/frontend, Isomatrix",
+    "affilie_desc": "Module diagnostic, Vuetify, optimisation performance",
+    "soxim_desc": "Laravel 9 — Application web",
+    "pezane_desc": "API Laravel, gestion payment, livraison, système parrainage",
+    "sharemyhobbies_desc": "Réseau social, API Laravel, application Ionic/Angular, Git-flow"
+  },
+  "education": {
+    "label": "Mon parcours académique",
+    "title": "FORMATION",
+    "master": "Master II",
+    "cs": "Informatique",
+    "diploma": "Diplôme professionnel",
+    "app_dev": "Développement d'application",
+    "bac": "Baccalauréat — Série D",
+    "sciences": "Sciences",
+    "brevet": "Brevet d'études"
+  },
+  "languages": {
+    "label": "Communication internationale",
+    "title": "LANGUES",
+    "fr_level": "Courant / Fluent",
+    "en_level": "Intermédiaire / Intermediate",
+    "it_level": "Notions / Basic",
+    "mg_level": "Langue maternelle / Native"
+  },
+  "contact": {
+    "label": "Travaillons ensemble",
+    "title": "CONTACT",
+    "description": "Disponible pour des projets freelance, des collaborations ou des postes à temps plein. N'hésitez pas à me contacter !",
+    "location_label": "Localisation",
+    "cta_title": "PRÊT À COLLABORER ?",
+    "cta_desc": "Besoin d'un développeur Full Stack expérimenté pour votre prochain projet ?",
+    "cta_btn": "Démarrer un projet",
+    "years_label": "Ans d'expérience",
+    "projects_label": "Projets livrés",
+    "languages_label": "Langues parlées"
+  }
+}

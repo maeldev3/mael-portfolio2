@@ -1,0 +1,80 @@
+// https://nuxt.com/docs/api/configuration/nuxt-config
+export default defineNuxtConfig({
+  compatibilityDate: '2024-11-01',
+  devtools: { enabled: true },
+
+  modules: [
+    '@nuxtjs/color-mode',
+    '@nuxtjs/i18n',
+  ],
+
+  colorMode: {
+    preference: 'dark',
+    fallback: 'dark',
+    classSuffix: '',
+  },
+
+  // i18n: {
+  //   locales: [
+      // { code: 'fr', name: 'Français', file: 'fr.json' },
+      // { code: 'en', name: 'English', file: 'en.json' },
+  //   ],
+  //   defaultLocale: 'fr',
+  //   lazy: true,
+  //   langDir: 'locales/',
+  //   strategy: 'no_prefix',
+  // },
+
+ i18n: {
+    locales: [
+      { code: 'fr', name: 'Français', iso: 'fr-FR', file: 'fr.json' },
+      { code: 'en', name: 'English', iso: 'en-US', file: 'en.json' },
+    ],
+    defaultLocale: 'fr',
+    strategy: 'prefix_except_default',
+    // lazy: true,
+    langDir: 'locales/',
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'i18n_redirected',
+      alwaysRedirect: true,
+      fallbackLocale: 'fr',
+    },
+  },
+
+
+  app: {
+    head: {
+      title: 'Ismael Rabemiafara — Full Stack Developer',
+      meta: [
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        {
+          name: 'description',
+          content:
+            'Portfolio de Rabemiafara Andrianiraisana Ismael — Développeur Full Stack spécialisé Laravel, Vue.js, Flutter, NestJS.',
+        },
+        { property: 'og:title', content: 'Ismael Rabemiafara — Full Stack Developer' },
+        { property: 'og:description', content: 'Portfolio professionnel — Laravel, Vue.js, Flutter, NestJS' },
+        { name: 'theme-color', content: '#00e5ff' },
+      ],
+      link: [
+        {
+          rel: 'preconnect',
+          href: 'https://fonts.googleapis.com',
+        },
+        {
+          rel: 'preconnect',
+          href: 'https://fonts.gstatic.com',
+          crossorigin: '',
+        },
+        {
+          rel: 'stylesheet',
+          href: 'https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=JetBrains+Mono:wght@300;400;500&display=swap',
+        },
+      ],
+    },
+  },
+
+  css: ['~/assets/css/main.css'],
+})
