@@ -1,0 +1,4 @@
+[[redirects]]
+  from = "/api/*"
+  to = "http://locahost:3000/"
+  status = 200

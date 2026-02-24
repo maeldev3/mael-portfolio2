@@ -1,0 +1,2801 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ismael R.B.M — Full Stack Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Cabinet+Grotesk:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════════
+   DESIGN SYSTEM — LIQUID CHROME DARK THEME
+══════════════════════════════════════════════ */
+:root {
+  --ink: #03050a;
+  --ink2: #080c16;
+  --ink3: #0d1220;
+  --surface: #111827;
+  --glass: rgba(255,255,255,0.03);
+  --glass2: rgba(255,255,255,0.06);
+  
+  /* Chromatic accent palette */
+  --chrome: #00e5ff;
+  --chrome-dim: rgba(0,229,255,0.15);
+  --chrome-glow: rgba(0,229,255,0.08);
+  --violet: #7c3aed;
+  --violet-soft: rgba(124,58,237,0.12);
+  --rose: #f43f5e;
+  --amber: #f59e0b;
+  --emerald: #10b981;
+  --emerald-soft: rgba(16,185,129,0.12);
+
+  --text: #94a3b8;
+  --text-soft: #475569;
+  --white: #f8fafc;
+  --white-dim: rgba(248,250,252,0.7);
+
+  --border: rgba(0,229,255,0.08);
+  --border-mid: rgba(0,229,255,0.18);
+  --border-high: rgba(0,229,255,0.35);
+
+  --nav-h: 70px;
+  --radius: 16px;
+  --radius-sm: 8px;
+}
+
+[data-theme="light"] {
+  --ink: #f0f4ff;
+  --ink2: #e8eeff;
+  --ink3: #ffffff;
+  --surface: #ffffff;
+  --glass: rgba(0,0,0,0.02);
+  --glass2: rgba(0,0,0,0.04);
+  --chrome: #0369a1;
+  --chrome-dim: rgba(3,105,161,0.1);
+  --chrome-glow: rgba(3,105,161,0.05);
+  --violet: #6d28d9;
+  --violet-soft: rgba(109,40,217,0.08);
+  --text: #374151;
+  --text-soft: #9ca3af;
+  --white: #111827;
+  --white-dim: rgba(17,24,39,0.7);
+  --border: rgba(3,105,161,0.08);
+  --border-mid: rgba(3,105,161,0.18);
+  --border-high: rgba(3,105,161,0.35);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  background: var(--ink);
+  color: var(--text);
+  font-family: 'Cabinet Grotesk', sans-serif;
+  overflow-x: hidden;
+  transition: background 0.5s, color 0.5s;
+}
+
+/* Noise texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.4;
+}
+
+::-webkit-scrollbar { width: 2px; }
+::-webkit-scrollbar-track { background: var(--ink); }
+::-webkit-scrollbar-thumb { background: linear-gradient(var(--chrome), var(--violet)); }
+
+/* ═══ UTILS ═══ */
+.container { max-width: 1280px; margin: 0 auto; padding: 0 2.5rem; }
+section { padding: 7rem 0; }
+
+.mono {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--chrome);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
+}
+.label::before { content: ''; width: 24px; height: 1px; background: var(--chrome); }
+
+h2.section-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-bottom: 1rem;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.63rem;
+  color: var(--chrome);
+  background: var(--chrome-dim);
+  border: 1px solid rgba(0,229,255,0.2);
+  padding: 0.2rem 0.65rem;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+  transition: all 0.2s;
+}
+.chip:hover { background: rgba(0,229,255,0.2); border-color: var(--chrome); }
+
+.chip-violet {
+  color: #a78bfa;
+  background: rgba(124,58,237,0.1);
+  border-color: rgba(124,58,237,0.2);
+}
+.chip-rose {
+  color: #fb7185;
+  background: rgba(244,63,94,0.1);
+  border-color: rgba(244,63,94,0.2);
+}
+.chip-emerald {
+  color: #34d399;
+  background: rgba(16,185,129,0.1);
+  border-color: rgba(16,185,129,0.2);
+}
+.chip-amber {
+  color: #fbbf24;
+  background: rgba(245,158,11,0.1);
+  border-color: rgba(245,158,11,0.2);
+}
+
+/* ═══ BUTTONS ═══ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  border-radius: var(--radius-sm);
+}
+.btn-primary {
+  background: var(--chrome);
+  color: #000;
+  padding: 0.75rem 1.8rem;
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,229,255,0.3); }
+.btn-primary:hover::before { opacity: 1; }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--chrome);
+  border: 1px solid var(--border-mid);
+  padding: 0.75rem 1.8rem;
+}
+.btn-ghost:hover { background: var(--chrome-dim); border-color: var(--chrome); transform: translateY(-3px); }
+
+/* ═══ NAV ═══ */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--nav-h);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 3rem;
+  background: rgba(3,5,10,0.7);
+  backdrop-filter: blur(32px) saturate(1.5);
+  border-bottom: 1px solid var(--border);
+  transition: all 0.4s;
+}
+[data-theme="light"] nav { background: rgba(240,244,255,0.7); }
+
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  color: var(--white);
+  text-decoration: none;
+  letter-spacing: 0.15em;
+  position: relative;
+}
+.nav-logo span { color: var(--chrome); }
+
+.nav-links {
+  display: flex;
+  gap: 0;
+  list-style: none;
+  background: var(--glass2);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 0.3rem;
+}
+.nav-links a {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.66rem;
+  color: var(--text-soft);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.5rem 1.1rem;
+  border-radius: 50px;
+  transition: all 0.25s;
+  white-space: nowrap;
+}
+.nav-links a:hover, .nav-links a.active {
+  background: var(--chrome-dim);
+  color: var(--chrome);
+}
+
+.nav-end {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.lang-switch {
+  display: flex;
+  background: var(--glass2);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  overflow: hidden;
+}
+.lang-btn {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  padding: 0.45rem 0.9rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s;
+  background: transparent;
+  color: var(--text-soft);
+}
+.lang-btn.active {
+  background: var(--chrome);
+  color: #000;
+}
+
+.theme-btn {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--glass2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  transition: all 0.25s;
+  color: var(--text);
+}
+.theme-btn:hover { border-color: var(--chrome); }
+
+.menu-btn {
+  display: none;
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--glass2);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  color: var(--text);
+}
+
+/* ═══ HERO ═══ */
+#hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 4rem;
+  padding: calc(var(--nav-h) + 5rem) 3rem 5rem;
+  max-width: 1380px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Animated mesh background */
+.hero-mesh {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.mesh-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+}
+.mb1 {
+  width: 700px; height: 700px;
+  top: -200px; right: -100px;
+  background: radial-gradient(circle, rgba(0,229,255,0.06) 0%, transparent 70%);
+  animation: blobFloat 15s ease-in-out infinite;
+}
+.mb2 {
+  width: 500px; height: 500px;
+  bottom: 0; left: -150px;
+  background: radial-gradient(circle, rgba(124,58,237,0.07) 0%, transparent 70%);
+  animation: blobFloat 20s ease-in-out infinite reverse;
+}
+.mb3 {
+  width: 400px; height: 400px;
+  top: 40%; right: 30%;
+  background: radial-gradient(circle, rgba(244,63,94,0.04) 0%, transparent 70%);
+  animation: blobFloat 25s ease-in-out infinite 5s;
+}
+@keyframes blobFloat {
+  0%,100% { transform: translate(0,0) scale(1) rotate(0deg); }
+  33% { transform: translate(30px,-40px) scale(1.05) rotate(5deg); }
+  66% { transform: translate(-20px,20px) scale(0.97) rotate(-3deg); }
+}
+
+/* Grid lines */
+.hero-grid-lines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(0,229,255,0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,229,255,0.015) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.hero-left { position: relative; z-index: 1; }
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--emerald-soft);
+  border: 1px solid rgba(16,185,129,0.25);
+  border-radius: 50px;
+  padding: 0.4rem 1.1rem;
+  margin-bottom: 2.5rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #34d399;
+}
+.badge-pulse {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 0 0 rgba(16,185,129,0.5);
+  animation: ripple 2s infinite;
+}
+@keyframes ripple {
+  0% { box-shadow: 0 0 0 0 rgba(16,185,129,0.5); }
+  70% { box-shadow: 0 0 0 10px rgba(16,185,129,0); }
+  100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); }
+}
+
+.hero-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(4rem, 7vw, 7rem);
+  color: var(--white);
+  line-height: 0.9;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.2rem;
+}
+.hero-name .chrome-text {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--chrome);
+  text-stroke: 2px var(--chrome);
+  position: relative;
+}
+
+.hero-role {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--text-soft);
+  letter-spacing: 0.12em;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.hero-role::before { content: '//'; color: var(--chrome); }
+
+.hero-desc {
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: var(--text);
+  line-height: 1.8;
+  max-width: 480px;
+  margin-bottom: 2.5rem;
+}
+.hero-desc strong { color: var(--white); font-weight: 700; }
+
+.hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
+
+.hero-stats {
+  display: flex;
+  gap: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+.stat-item {}
+.stat-val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.8rem;
+  color: var(--chrome);
+  line-height: 1;
+  letter-spacing: 0.05em;
+}
+.stat-lbl {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--text-soft);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 0.15rem;
+}
+
+/* Hero right — photo + cards */
+.hero-right {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.hero-photo-card {
+  background: var(--glass2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 4/3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-photo-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+.photo-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background: linear-gradient(135deg, var(--ink2), var(--ink3));
+  position: relative;
+}
+.photo-fallback::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--chrome-glow), var(--violet-soft));
+}
+.photo-avatar {
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  background: var(--chrome-dim);
+  border: 3px solid var(--border-mid);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+  position: relative;
+  z-index: 1;
+}
+.photo-name {
+  font-family: 'Fraunces', serif;
+  font-size: 1.4rem;
+  color: var(--white);
+  font-weight: 700;
+  position: relative;
+  z-index: 1;
+}
+/* Scan lines effect */
+.photo-fallback::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0,229,255,0.015) 3px,
+    rgba(0,229,255,0.015) 4px
+  );
+  pointer-events: none;
+}
+
+.mini-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+.mini-card {
+  background: var(--glass2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1rem 1.2rem;
+  transition: all 0.3s;
+}
+.mini-card:hover { border-color: var(--border-mid); transform: translateY(-2px); }
+.mini-card-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--text-soft);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.mini-card-val {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--white);
+}
+.avail-dot {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #34d399;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.avail-dot::before {
+  content: '';
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  animation: ripple 2s infinite;
+}
+
+.stack-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.3rem;
+}
+
+/* ═══ ABOUT ═══ */
+#about { background: var(--ink2); }
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 6rem;
+  align-items: center;
+}
+
+.about-visual {
+  position: relative;
+}
+.about-photo {
+  width: 100%;
+  max-width: 380px;
+  aspect-ratio: 3/4;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  position: relative;
+  background: var(--glass2);
+}
+.about-photo img { width:100%; height:100%; object-fit: cover; }
+.about-photo-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, var(--ink2), var(--ink3));
+  gap: 1.5rem;
+  position: relative;
+}
+.about-photo-fallback::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--chrome-glow), var(--violet-soft));
+}
+.big-avatar {
+  width: 140px; height: 140px;
+  border-radius: 50%;
+  background: var(--chrome-dim);
+  border: 3px solid var(--border-mid);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  position: relative;
+  z-index: 1;
+}
+.about-photo-name {
+  font-family: 'Fraunces', serif;
+  font-size: 1.5rem;
+  color: var(--white);
+  font-weight: 900;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+.about-photo-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--chrome);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+/* Frame corners */
+.corner {
+  position: absolute;
+  width: 28px; height: 28px;
+  z-index: 2;
+}
+.corner-tl { top: -6px; left: -6px; border-top: 2px solid var(--chrome); border-left: 2px solid var(--chrome); }
+.corner-tr { top: -6px; right: -6px; border-top: 2px solid var(--chrome); border-right: 2px solid var(--chrome); }
+.corner-bl { bottom: -6px; left: -6px; border-bottom: 2px solid var(--chrome); border-left: 2px solid var(--chrome); }
+.corner-br { bottom: -6px; right: -6px; border-bottom: 2px solid var(--chrome); border-right: 2px solid var(--chrome); }
+
+.about-text p {
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: var(--text);
+  margin-bottom: 1.2rem;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.7rem;
+  margin: 2rem 0;
+}
+.info-item {
+  background: var(--glass2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.9rem 1.1rem;
+  transition: border-color 0.25s;
+}
+.info-item:hover { border-color: var(--border-mid); }
+.info-key {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--text-soft);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+.info-val {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--white);
+}
+
+/* ═══ SKILLS ═══ */
+#skills { background: var(--ink); }
+
+.skills-bento {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: auto auto auto;
+  gap: 1rem;
+  margin-top: 3rem;
+}
+
+.skill-block {
+  background: var(--glass2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.8rem;
+  transition: all 0.35s;
+  position: relative;
+  overflow: hidden;
+}
+.skill-block::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--chrome), transparent);
+  transform: scaleX(0);
+  transition: transform 0.4s;
+}
+.skill-block:hover { border-color: var(--border-mid); transform: translateY(-4px); box-shadow: 0 24px 48px rgba(0,0,0,0.4); }
+.skill-block:hover::before { transform: scaleX(1); }
+
+.sb-fe { grid-column: span 3; }
+.sb-be { grid-column: span 3; }
+.sb-mobile { grid-column: span 2; }
+.sb-db { grid-column: span 2; }
+.sb-devops { grid-column: span 2; }
+.sb-design { grid-column: span 3; }
+.sb-langs { grid-column: span 3; }
+
+.sb-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+.sb-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 1rem;
+}
+.chips-wrap { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+/* ═══ EXPERIENCE ═══ */
+#experience { background: var(--ink2); }
+
+.timeline {
+  position: relative;
+  margin-top: 3.5rem;
+  padding-left: 2.5rem;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--chrome), var(--violet), transparent);
+}
+
+.tl-item {
+  position: relative;
+  margin-bottom: 3.5rem;
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: all 0.6s ease;
+}
+.tl-item.visible { opacity: 1; transform: translateX(0); }
+
+.tl-dot {
+  position: absolute;
+  left: -2.5rem;
+  top: 4px;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--ink2);
+  border: 2px solid var(--chrome);
+  box-shadow: 0 0 16px var(--chrome-dim);
+}
+
+.tl-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.tl-period {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  color: var(--chrome);
+  background: var(--chrome-dim);
+  border: 1px solid rgba(0,229,255,0.2);
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+}
+.tl-role {
+  font-family: 'Fraunces', serif;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: 0.2rem;
+}
+.tl-company {
+  font-size: 0.9rem;
+  color: #a78bfa;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.tl-card {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1.2rem 1.4rem;
+  margin-bottom: 0.75rem;
+  transition: border-color 0.25s;
+}
+.tl-card:hover { border-color: var(--border-mid); }
+
+.tl-proj-name {
+  font-family: 'Cabinet Grotesk', sans-serif;
+  font-weight: 800;
+  color: var(--chrome);
+  font-size: 0.95rem;
+  margin-bottom: 0.7rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.tl-proj-name::before { content: '◆'; font-size: 0.45rem; }
+
+.tl-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+.tl-list li {
+  font-size: 0.88rem;
+  color: var(--text);
+  display: flex;
+  gap: 0.7rem;
+  align-items: flex-start;
+  line-height: 1.5;
+}
+.tl-list li::before { content: '→'; color: var(--chrome); flex-shrink: 0; margin-top: 0.1rem; }
+
+.tech-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.8rem;
+}
+.tech-b {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  color: #a78bfa;
+  background: var(--violet-soft);
+  border: 1px solid rgba(124,58,237,0.2);
+  padding: 0.15rem 0.6rem;
+  border-radius: 3px;
+}
+
+/* ═══ PROJECTS ═══ */
+#projects { background: var(--ink); }
+
+.projects-section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.proj-card {
+  background: var(--glass2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: all 0.4s;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  cursor: pointer;
+}
+.proj-card:hover { border-color: var(--border-high); transform: translateY(-8px); box-shadow: 0 30px 60px rgba(0,0,0,0.5); }
+
+/* Project image/preview area */
+.proj-preview {
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--ink2), var(--ink3));
+}
+.proj-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+.proj-card:hover .proj-preview img { transform: scale(1.05); }
+
+.proj-preview-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.proj-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 5rem;
+  color: var(--border-high);
+  position: absolute;
+  top: 0; right: 1rem;
+  line-height: 1;
+  transition: color 0.4s;
+}
+.proj-card:hover .proj-num { color: var(--chrome); }
+.proj-icon-big { font-size: 3rem; position: relative; z-index: 1; }
+.proj-scan {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 4px,
+    rgba(0,229,255,0.02) 4px,
+    rgba(0,229,255,0.02) 5px
+  );
+}
+
+/* Overlay on hover */
+.proj-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,229,255,0.06);
+  opacity: 0;
+  transition: opacity 0.4s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+.proj-card:hover .proj-overlay { opacity: 1; }
+
+.overlay-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+}
+.overlay-btn-primary {
+  background: var(--chrome);
+  color: #000;
+}
+.overlay-btn-ghost {
+  background: rgba(0,0,0,0.5);
+  color: var(--chrome);
+  border: 1px solid var(--chrome);
+  backdrop-filter: blur(8px);
+}
+.overlay-btn:hover { transform: translateY(-2px); }
+
+/* Project info */
+.proj-info {
+  padding: 1.4rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.proj-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+}
+.proj-desc {
+  font-size: 0.85rem;
+  color: var(--text);
+  line-height: 1.65;
+  margin-bottom: 1rem;
+  flex: 1;
+}
+.proj-chips { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.75rem; }
+
+.proj-links {
+  display: flex;
+  gap: 0.6rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border);
+}
+.proj-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.63rem;
+  letter-spacing: 0.08em;
+  color: var(--text-soft);
+  text-decoration: none;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  transition: all 0.2s;
+  cursor: pointer;
+  background: none;
+}
+.proj-link-btn:hover { color: var(--chrome); border-color: var(--chrome); background: var(--chrome-dim); }
+
+/* ═══ CODE MODAL ═══ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 9000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  backdrop-filter: blur(8px);
+}
+.modal-overlay.open { display: flex; }
+
+.modal-box {
+  background: var(--ink2);
+  border: 1px solid var(--border-mid);
+  border-radius: var(--radius);
+  width: 100%;
+  max-width: 780px;
+  max-height: 80vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.modal-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--white);
+}
+.modal-close {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--glass2);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.modal-close:hover { border-color: var(--rose); color: var(--rose); }
+
+.modal-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  padding: 0 1.5rem;
+  gap: 0;
+  background: var(--glass);
+}
+.modal-tab {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.8rem 1.2rem;
+  border: none;
+  background: none;
+  color: var(--text-soft);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.25s;
+  margin-bottom: -1px;
+}
+.modal-tab.active { color: var(--chrome); border-bottom-color: var(--chrome); }
+
+.modal-body { padding: 1.5rem; overflow-y: auto; flex: 1; }
+
+.modal-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+.gallery-img {
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  aspect-ratio: 16/9;
+  background: var(--glass2);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  cursor: zoom-in;
+  transition: all 0.3s;
+}
+.gallery-img:hover { border-color: var(--chrome); transform: scale(1.02); }
+.gallery-img img { width:100%; height:100%; object-fit:cover; }
+
+.modal-code {
+  background: #0a0f1a;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1.5rem;
+  overflow: auto;
+  max-height: 400px;
+}
+.modal-code pre {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.8rem;
+  line-height: 1.7;
+  color: var(--text);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.code-comment { color: #475569; }
+.code-key { color: var(--chrome); }
+.code-val { color: #a78bfa; }
+.code-str { color: #34d399; }
+.code-fn { color: #f59e0b; }
+
+/* ═══ EDUCATION ═══ */
+#education { background: var(--ink2); }
+
+.edu-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 3rem;
+}
+.edu-card {
+  background: var(--glass2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  transition: all 0.3s;
+}
+.edu-card:hover { border-color: var(--border-mid); transform: translateY(-3px); }
+.edu-ico {
+  width: 42px; height: 42px;
+  border-radius: var(--radius-sm);
+  background: var(--chrome-dim);
+  border: 1px solid rgba(0,229,255,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+.edu-yr {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--chrome);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.3rem;
+}
+.edu-deg {
+  font-family: 'Fraunces', serif;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: 0.2rem;
+}
+.edu-sch { font-size: 0.8rem; color: var(--text-soft); }
+
+/* ═══ CONTACT ═══ */
+#contact { background: var(--ink); }
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  margin-top: 3rem;
+  align-items: start;
+}
+
+.contact-items { display: flex; flex-direction: column; gap: 0.9rem; margin-top: 1.5rem; }
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.1rem 1.4rem;
+  background: var(--glass2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition: all 0.25s;
+  text-decoration: none;
+  color: inherit;
+}
+.contact-item:hover { border-color: var(--border-mid); transform: translateX(6px); }
+.c-ico {
+  width: 40px; height: 40px;
+  border-radius: var(--radius-sm);
+  background: var(--chrome-dim);
+  border: 1px solid rgba(0,229,255,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+.c-label { font-family: 'DM Mono', monospace; font-size: 0.62rem; color: var(--text-soft); letter-spacing: 0.08em; }
+.c-val { font-size: 0.95rem; font-weight: 600; color: var(--white); }
+
+.contact-form { display: flex; flex-direction: column; gap: 0.9rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+.form-group { display: flex; flex-direction: column; gap: 0.35rem; }
+.form-lbl {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--text-soft);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.form-inp, .form-ta {
+  background: var(--glass2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.8rem 1rem;
+  color: var(--white);
+  font-family: 'Cabinet Grotesk', sans-serif;
+  font-size: 0.95rem;
+  transition: border-color 0.25s;
+  outline: none;
+  width: 100%;
+}
+.form-inp:focus, .form-ta:focus { border-color: var(--chrome); box-shadow: 0 0 0 3px var(--chrome-glow); }
+.form-ta { resize: vertical; min-height: 130px; }
+.form-msg {
+  display: none;
+  padding: 0.9rem 1.1rem;
+  background: var(--emerald-soft);
+  border: 1px solid rgba(16,185,129,0.25);
+  border-radius: var(--radius-sm);
+  color: #34d399;
+  font-size: 0.88rem;
+  font-family: 'DM Mono', monospace;
+}
+
+/* ═══ FOOTER ═══ */
+footer {
+  background: var(--ink2);
+  border-top: 1px solid var(--border);
+  padding: 2rem 0;
+}
+.foot-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.foot-copy {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--text-soft);
+  letter-spacing: 0.1em;
+}
+.foot-links { display: flex; gap: 1.5rem; }
+.foot-links a {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--text-soft);
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  transition: color 0.2s;
+}
+.foot-links a:hover { color: var(--chrome); }
+
+/* ═══ SCROLL PROGRESS ═══ */
+.progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--chrome), var(--violet));
+  z-index: 1001;
+  transition: width 0.1s linear;
+}
+
+/* ═══ CURSOR ═══ */
+.cursor {
+  position: fixed;
+  width: 8px; height: 8px;
+  background: var(--chrome);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%,-50%);
+  transition: width 0.2s, height 0.2s;
+  mix-blend-mode: difference;
+}
+.cursor-ring {
+  position: fixed;
+  width: 32px; height: 32px;
+  border: 1px solid rgba(0,229,255,0.4);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%,-50%);
+  transition: left 0.12s ease, top 0.12s ease, width 0.2s, height 0.2s;
+}
+@media (hover:none) { .cursor, .cursor-ring { display:none; } }
+
+/* ═══ MOBILE NAV ═══ */
+.mobile-nav {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(3,5,10,0.97);
+  z-index: 998;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  backdrop-filter: blur(24px);
+}
+.mobile-nav.open { display: flex; }
+.mobile-nav a {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3rem;
+  color: var(--white);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  transition: color 0.2s;
+}
+.mobile-nav a:hover { color: var(--chrome); }
+.mobile-close {
+  position: absolute;
+  top: 2rem; right: 2rem;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  width: 44px; height: 44px;
+  color: var(--text);
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ═══ ANIMATIONS ═══ */
+.fade-up {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 1024px) {
+  .skills-bento { grid-template-columns: repeat(2, 1fr); }
+  .sb-fe,.sb-be,.sb-mobile,.sb-db,.sb-devops,.sb-design,.sb-langs { grid-column: span 1; }
+  .project-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 900px) {
+  nav { padding: 0 1.5rem; }
+  .nav-links { display: none; }
+  .menu-btn { display: flex; }
+  #hero { grid-template-columns: 1fr; padding-top: calc(var(--nav-h) + 3rem); }
+  .hero-right { display: none; }
+  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .about-visual { display: none; }
+  .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .form-row { grid-template-columns: 1fr; }
+  .project-grid { grid-template-columns: 1fr; }
+  .edu-grid { grid-template-columns: 1fr; }
+  section { padding: 5rem 0; }
+  .container { padding: 0 1.5rem; }
+}
+@media (max-width: 600px) {
+  .skills-bento { grid-template-columns: 1fr; }
+  .hero-stats { gap: 1.5rem; }
+  .info-grid { grid-template-columns: 1fr; }
+  .modal-gallery { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- MESH BG -->
+<div class="hero-mesh">
+  <div class="mesh-blob mb1"></div>
+  <div class="mesh-blob mb2"></div>
+  <div class="mesh-blob mb3"></div>
+</div>
+<div class="hero-grid-lines"></div>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-close" onclick="closeMobile()">✕</button>
+  <a href="#hero" onclick="closeMobile()" data-i18n="nav.home">Accueil</a>
+  <a href="#about" onclick="closeMobile()" data-i18n="nav.about">À Propos</a>
+  <a href="#skills" onclick="closeMobile()" data-i18n="nav.skills">Skills</a>
+  <a href="#experience" onclick="closeMobile()" data-i18n="nav.experience">Expérience</a>
+  <a href="#projects" onclick="closeMobile()" data-i18n="nav.projects">Projets</a>
+  <a href="#contact" onclick="closeMobile()" data-i18n="nav.contact">Contact</a>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo">I<span>.</span>R<span>.</span>B<span>.</span>M</a>
+  <ul class="nav-links">
+    <li><a href="#about" data-i18n="nav.about">À Propos</a></li>
+    <li><a href="#skills" data-i18n="nav.skills">Skills</a></li>
+    <li><a href="#experience" data-i18n="nav.experience">Expérience</a></li>
+    <li><a href="#projects" data-i18n="nav.projects">Projets</a></li>
+    <li><a href="#education" data-i18n="nav.education">Formation</a></li>
+    <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+  </ul>
+  <div class="nav-end">
+    <div class="lang-switch">
+      <button class="lang-btn active" onclick="setLang('fr')">FR</button>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" id="themeBtn" title="Toggle theme">🌙</button>
+    <button class="menu-btn" onclick="openMobile()">☰</button>
+  </div>
+</nav>
+
+<!-- ═══════ HERO ═══════ -->
+<div id="hero">
+  <div class="hero-left fade-up">
+    <div class="hero-badge">
+      <span class="badge-pulse"></span>
+      <span data-i18n="hero.badge">Disponible — Remote & Freelance</span>
+    </div>
+    <h1 class="hero-name">
+      ISMAEL<br>
+      <span class="chrome-text">R.B.M</span>
+    </h1>
+    <p class="hero-role">
+      <span data-i18n="hero.role">Full Stack Developer · Laravel · Nuxt · Flutter</span>
+    </p>
+    <p class="hero-desc" data-i18n-html="hero.desc">
+      Je transforme vos idées en <strong>plateformes performantes et évolutives</strong>. 
+      Expert full stack — frontend élégant, backend robuste, déploiement cloud sécurisé.
+    </p>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn btn-primary">
+        <span data-i18n="hero.cta1">Voir mes projets</span> →
+      </a>
+      <a href="#contact" class="btn btn-ghost">
+        <span data-i18n="hero.cta2">Planifier un appel</span>
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-val" id="stat1">0+</div>
+        <div class="stat-lbl" data-i18n="hero.stat1">Années d'exp.</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val" id="stat2">0+</div>
+        <div class="stat-lbl" data-i18n="hero.stat2">Projets livrés</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val" id="stat3">0+</div>
+        <div class="stat-lbl" data-i18n="hero.stat3">Technologies</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right fade-up" style="transition-delay:0.2s">
+    <div class="hero-photo-card">
+      <div class="photo-fallback">
+        <div class="photo-avatar">👨‍💻</div>
+        <div class="photo-name">Ismael R.B.M</div>
+      </div>
+    </div>
+    <div class="mini-cards">
+      <div class="mini-card">
+        <div class="mini-card-label" data-i18n="hero.avail">Disponibilité</div>
+        <div class="avail-dot" data-i18n="hero.availVal">Open to work</div>
+      </div>
+      <div class="mini-card">
+        <div class="mini-card-label" data-i18n="hero.location">Localisation</div>
+        <div class="mini-card-val">MG · FR · Remote</div>
+      </div>
+      <div class="mini-card" style="grid-column: span 2;">
+        <div class="mini-card-label">// Stack</div>
+        <div class="stack-row">
+          <span class="chip">Laravel</span>
+          <span class="chip">Nuxt.js</span>
+          <span class="chip">Flutter</span>
+          <span class="chip">Vue.js</span>
+          <span class="chip">NestJS</span>
+          <span class="chip">Docker</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ ABOUT ═══════ -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-visual fade-up">
+        <div class="about-photo">
+          <div class="about-photo-fallback">
+            <div class="big-avatar">👨‍💻</div>
+            <div class="about-photo-name">Ismael<br>Rabemiafara</div>
+            <div class="about-photo-sub">Full Stack Developer</div>
+          </div>
+        </div>
+        <div class="corner corner-tl"></div>
+        <div class="corner corner-tr"></div>
+        <div class="corner corner-bl"></div>
+        <div class="corner corner-br"></div>
+      </div>
+      <div class="about-text fade-up" style="transition-delay:0.15s">
+        <div class="label" data-i18n="about.label">À propos de moi</div>
+        <h2 class="section-title" data-i18n="about.title">De la conception<br>au déploiement</h2>
+        <p data-i18n="about.p1">
+          Passionné par le développement full stack, je suis <strong>RABEMIAFARA Andrianiraisana Ismael</strong>, 
+          développeur basé à Madagascar. Je crée des solutions pensées pour l'utilisateur, la sécurité et la scalabilité.
+        </p>
+        <p data-i18n="about.p2">
+          Mon expertise couvre l'intégralité du cycle de vie d'une application : Frontend (Nuxt/Vue), 
+          Backend (Laravel, Symfony, NestJS), Mobile (Flutter, Ionic), et DevOps (Docker, CI/CD).
+        </p>
+        <p data-i18n="about.p3">
+          Expérience sur des projets pour la France, Madagascar et l'Europe, avec une approche cloud multi-régions.
+        </p>
+        <div class="info-grid">
+          <div class="info-item">
+            <div class="info-key">Email</div>
+            <div class="info-val">maelrbm3@gmail.com</div>
+          </div>
+          <div class="info-item">
+            <div class="info-key">WhatsApp</div>
+            <div class="info-val">+261 34 689 5851</div>
+          </div>
+          <div class="info-item">
+            <div class="info-key" data-i18n="about.location">Localisation</div>
+            <div class="info-val">Akadindramamy, MG</div>
+          </div>
+          <div class="info-item">
+            <div class="info-key" data-i18n="about.avail">Disponibilité</div>
+            <div class="info-val" style="color:#34d399">✓ <span data-i18n="about.availVal">Disponible</span></div>
+          </div>
+          <div class="info-item">
+            <div class="info-key" data-i18n="about.langs">Langues</div>
+            <div class="info-val">FR · EN · IT</div>
+          </div>
+          <div class="info-item">
+            <div class="info-key" data-i18n="about.work">Mode de travail</div>
+            <div class="info-val">Remote / Freelance</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap">
+          <a href="mailto:maelrbm3@gmail.com" class="btn btn-primary" data-i18n="about.cta1">Me contacter →</a>
+          <a href="https://maelrbmfolio.netlify.app/" target="_blank" class="btn btn-ghost" data-i18n="about.cta2">Portfolio ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ SKILLS ═══════ -->
+<section id="skills">
+  <div class="container">
+    <div class="label fade-up" data-i18n="skills.label">Compétences techniques</div>
+    <h2 class="section-title fade-up" data-i18n="skills.title">Ma stack de prédilection</h2>
+    <div class="skills-bento">
+      <div class="skill-block sb-fe fade-up">
+        <div class="sb-icon">⚡</div>
+        <div class="sb-title" data-i18n="skills.frontend">Frontend</div>
+        <div class="chips-wrap">
+          <span class="chip">Vue.js</span>
+          <span class="chip">Nuxt.js</span>
+          <span class="chip">Angular</span>
+          <span class="chip">Ionic</span>
+          <span class="chip">HTML / CSS</span>
+          <span class="chip">JavaScript</span>
+          <span class="chip">Tailwind CSS</span>
+        </div>
+      </div>
+      <div class="skill-block sb-be fade-up" style="transition-delay:0.08s">
+        <div class="sb-icon">🛠</div>
+        <div class="sb-title" data-i18n="skills.backend">Backend</div>
+        <div class="chips-wrap">
+          <span class="chip chip-violet">Laravel</span>
+          <span class="chip chip-violet">Symfony</span>
+          <span class="chip chip-violet">NestJS</span>
+          <span class="chip chip-violet">Node.js</span>
+          <span class="chip chip-violet">PHP</span>
+          <span class="chip chip-violet">Silex</span>
+          <span class="chip chip-violet">API Platform</span>
+        </div>
+      </div>
+      <div class="skill-block sb-mobile fade-up" style="transition-delay:0.16s">
+        <div class="sb-icon">📱</div>
+        <div class="sb-title" data-i18n="skills.mobile">Mobile</div>
+        <div class="chips-wrap">
+          <span class="chip chip-rose">Flutter</span>
+          <span class="chip chip-rose">Ionic</span>
+          <span class="chip chip-rose">Android</span>
+          <span class="chip chip-rose">Cross-platform</span>
+        </div>
+      </div>
+      <div class="skill-block sb-db fade-up" style="transition-delay:0.24s">
+        <div class="sb-icon">🗄</div>
+        <div class="sb-title" data-i18n="skills.db">Bases de données</div>
+        <div class="chips-wrap">
+          <span class="chip chip-amber">MySQL</span>
+          <span class="chip chip-amber">MongoDB</span>
+          <span class="chip chip-amber">SQL</span>
+          <span class="chip chip-amber">Amazon S3</span>
+        </div>
+      </div>
+      <div class="skill-block sb-devops fade-up" style="transition-delay:0.32s">
+        <div class="sb-icon">🚀</div>
+        <div class="sb-title" data-i18n="skills.devops">DevOps</div>
+        <div class="chips-wrap">
+          <span class="chip chip-emerald">Docker</span>
+          <span class="chip chip-emerald">CI/CD</span>
+          <span class="chip chip-emerald">Git / Git-flow</span>
+          <span class="chip chip-emerald">Linux</span>
+          <span class="chip chip-emerald">Windows Server</span>
+        </div>
+      </div>
+      <div class="skill-block sb-design fade-up" style="transition-delay:0.4s">
+        <div class="sb-icon">🎨</div>
+        <div class="sb-title" data-i18n="skills.design">Design & Outils</div>
+        <div class="chips-wrap">
+          <span class="chip">Photoshop</span>
+          <span class="chip">Illustrator</span>
+          <span class="chip">After Effects</span>
+          <span class="chip">UML / Merise</span>
+          <span class="chip">WordPress</span>
+          <span class="chip">PrestaShop</span>
+          <span class="chip">Python IA</span>
+        </div>
+      </div>
+      <div class="skill-block sb-langs fade-up" style="transition-delay:0.48s">
+        <div class="sb-icon">🌍</div>
+        <div class="sb-title" data-i18n="skills.languages">Langues parlées</div>
+        <div class="chips-wrap">
+          <span class="chip">🇫🇷 Français — Courant</span>
+          <span class="chip">🇬🇧 English — Professionnel</span>
+          <span class="chip">🇮🇹 Italiano — Intermédiaire</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ EXPERIENCE ═══════ -->
+<section id="experience">
+  <div class="container">
+    <div class="label fade-up" data-i18n="exp.label">Parcours professionnel</div>
+    <h2 class="section-title fade-up" data-i18n="exp.title">Expérience</h2>
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-header">
+          <div>
+            <div class="tl-role">Lead Full Stack Developer</div>
+            <div class="tl-company">🏢 MG Consulting</div>
+          </div>
+          <span class="tl-period">Oct 2024 – Nov 2025</span>
+        </div>
+        <div class="tech-badges" style="margin-bottom:1rem">
+          <span class="tech-b">Laravel</span><span class="tech-b">Vue.js</span>
+          <span class="tech-b">Nuxt.js</span><span class="tech-b">Docker</span>
+          <span class="tech-b">Symfony</span><span class="tech-b">CI/CD</span>
+        </div>
+        <div class="tl-card">
+          <div class="tl-proj-name">Feed Connect</div>
+          <ul class="tl-list">
+            <li>Intégration <strong>Zoho Sign</strong> — signatures électroniques sécurisées via API</li>
+            <li>Optimisation déploiement par conteneurisation <strong>Docker</strong></li>
+            <li>Automatisation des workflows comptables et documents légaux</li>
+          </ul>
+        </div>
+        <div class="tl-card">
+          <div class="tl-proj-name">Souper des Nurses</div>
+          <ul class="tl-list">
+            <li>Système de <strong>billetterie électronique unique</strong></li>
+            <li>API robuste avec <strong>Symfony / API Platform</strong></li>
+            <li>DevOps complet : Docker + CI/CD pipeline</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-header">
+          <div>
+            <div class="tl-role">Lead Developer — Mobile & Web Full Stack</div>
+            <div class="tl-company">🏢 Fibonacci</div>
+          </div>
+          <span class="tl-period">Mars 2024 – Sept 2024</span>
+        </div>
+        <div class="tech-badges" style="margin-bottom:1rem">
+          <span class="tech-b">Flutter</span><span class="tech-b">Laravel</span>
+          <span class="tech-b">Nuxt.js</span><span class="tech-b">API SIV</span>
+        </div>
+        <div class="tl-card">
+          <div class="tl-proj-name">Voomgle — Automotos</div>
+          <ul class="tl-list">
+            <li>App Flutter : chat temps réel, appels, suivi d'immatriculations</li>
+            <li>Intégration <strong>API SIV</strong> : pré-remplissage automatique des données véhicule</li>
+            <li>Plateforme web miroir : annonces, gestion garages, carnet d'entretien</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-header">
+          <div>
+            <div class="tl-role">Développeur Full Stack JS — Encadreur technique</div>
+            <div class="tl-company">🏢 Constellation</div>
+          </div>
+          <span class="tl-period">Oct 2023 – Fév 2024</span>
+        </div>
+        <div class="tech-badges" style="margin-bottom:1rem">
+          <span class="tech-b">NestJS</span><span class="tech-b">Nuxt.js</span>
+          <span class="tech-b">Node.js</span><span class="tech-b">MongoDB</span>
+          <span class="tech-b">Amazon S3</span>
+        </div>
+        <div class="tl-card">
+          <div class="tl-proj-name">Centralcare <small style="color:var(--text-soft);font-size:0.7rem">centralcare.ostie.mg</small></div>
+          <ul class="tl-list">
+            <li>Gestion système utilisateur (Isomatrix côté front)</li>
+            <li>Implémentation <strong>Amazon S3</strong> pour stockage de fichiers (backend)</li>
+            <li>Sécurisation API avec <strong>@casl/ability</strong></li>
+          </ul>
+        </div>
+        <div class="tl-card">
+          <div class="tl-proj-name">Twifone <small style="color:var(--text-soft);font-size:0.7rem">twifone.com</small></div>
+          <ul class="tl-list">
+            <li>Intégration <strong>Twilio</strong> : achat et configuration de numéros</li>
+            <li>Système Isomatrix back + front, module messagerie</li>
+          </ul>
+        </div>
+        <div class="tl-card">
+          <div class="tl-proj-name">Affilie <small style="color:var(--text-soft);font-size:0.7rem">affilie.ostie.mg</small></div>
+          <ul class="tl-list">
+            <li>Migration automatisée SQL → MongoDB</li>
+            <li>Optimisation performances module diagnostic</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-header">
+          <div>
+            <div class="tl-role">Développeur Full Stack JS & PHP — Freelance</div>
+            <div class="tl-company">🌐 Remote / Freelance</div>
+          </div>
+          <span class="tl-period">Oct 2022 – Mars 2023</span>
+        </div>
+        <div class="tech-badges" style="margin-bottom:1rem">
+          <span class="tech-b">Laravel 9</span><span class="tech-b">Nuxt.js 2</span><span class="tech-b">Symfony</span>
+        </div>
+        <div class="tl-card">
+          <div class="tl-proj-name">Soxim <small style="color:var(--text-soft)">soxim.fr</small> & Marketplace Pezane</div>
+          <ul class="tl-list">
+            <li>Laravel 9 pour client français (Soxim)</li>
+            <li>API Laravel + Nuxt marketplace e-commerce (paiement, livraison, parrainage)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-header">
+          <div>
+            <div class="tl-role">Développeur Android & Web</div>
+            <div class="tl-company">🏢 MkWebLinks</div>
+          </div>
+          <span class="tl-period">Mai 2021 – Sept 2022</span>
+        </div>
+        <div class="tech-badges" style="margin-bottom:1rem">
+          <span class="tech-b">Laravel 8</span><span class="tech-b">Ionic 5</span><span class="tech-b">Angular</span>
+        </div>
+        <div class="tl-card">
+          <div class="tl-proj-name">ShareMyHobbies (réseau social)</div>
+          <ul class="tl-list">
+            <li>API Laravel + back-office réseau social</li>
+            <li>App mobile Ionic / Angular · Git-flow équipe</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ PROJECTS ═══════ -->
+<section id="projects">
+  <div class="container">
+    <div class="projects-section-header">
+      <div>
+        <div class="label fade-up" data-i18n="proj.label">Réalisations</div>
+        <h2 class="section-title fade-up" data-i18n="proj.title">Projets notables</h2>
+      </div>
+      <p class="fade-up" style="font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--text-soft);letter-spacing:0.1em;max-width:220px;text-align:right" data-i18n="proj.hint">
+        Cliquez sur un projet pour voir les captures et le code
+      </p>
+    </div>
+
+    <div class="project-grid">
+
+      <!-- VOOMGLE -->
+      <div class="proj-card fade-up" onclick="openModal('voomgle')">
+        <div class="proj-preview">
+          <div class="proj-preview-fallback">
+            <div class="proj-num">01</div>
+            <span class="proj-icon-big">🚗</span>
+            <div class="proj-scan"></div>
+          </div>
+          <div class="proj-overlay">
+            <button class="overlay-btn overlay-btn-primary" onclick="event.stopPropagation();openModalTab('voomgle','gallery')">🖼 Galerie</button>
+            <button class="overlay-btn overlay-btn-ghost" onclick="event.stopPropagation();openModalTab('voomgle','code')">{ } Code</button>
+          </div>
+        </div>
+        <div class="proj-info">
+          <div class="proj-title">Voomgle — Automotos</div>
+          <div class="proj-chips">
+            <span class="chip">Flutter</span>
+            <span class="chip chip-violet">Laravel</span>
+            <span class="chip">Nuxt.js</span>
+            <span class="chip chip-amber">API SIV</span>
+          </div>
+          <div class="proj-desc" data-i18n="proj.voomgle.desc">
+            Plateforme véhicules : app mobile Flutter avec chat temps réel, appels, suivi immatriculations. Intégration API SIV. Plateforme web miroir complète.
+          </div>
+          <div class="proj-links">
+            <button class="proj-link-btn" onclick="event.stopPropagation();openModalTab('voomgle','gallery')">🖼 Galerie</button>
+            <button class="proj-link-btn" onclick="event.stopPropagation();openModalTab('voomgle','code')">{ } Code</button>
+            <button class="proj-link-btn" onclick="event.stopPropagation();openModalTab('voomgle','info')">ℹ Info</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- FEED CONNECT -->
+      <div class="proj-card fade-up" style="transition-delay:0.1s" onclick="openModal('feedconnect')">
+        <div class="proj-preview">
+          <div class="proj-preview-fallback">
+            <div class="proj-num">02</div>
+            <span class="proj-icon-big">✍️</span>
+            <div class="proj-scan"></div>
+          </div>
+          <div class="proj-overlay">
+            <button class="overlay-btn overlay-btn-primary" onclick="event.stopPropagation();openModalTab('feedconnect','gallery')">🖼 Galerie</button>
+            <button class="overlay-btn overlay-btn-ghost" onclick="event.stopPropagation();openModalTab('feedconnect','code')">{ } Code</button>
+          </div>
+        </div>
+        <div class="proj-info">
+          <div class="proj-title">Feed Connect</div>
+          <div class="proj-chips">
+            <span class="chip chip-violet">Laravel</span>
+            <span class="chip">Vue.js</span>
+            <span class="chip chip-emerald">Docker</span>
+            <span class="chip">Zoho Sign</span>
+          </div>
+          <div class="proj-desc" data-i18n="proj.feedconnect.desc">
+            Gestion documentaire avec signatures électroniques Zoho Sign, automatisation workflows comptables, conteneurisation Docker.
+          </div>
+          <div class="proj-links">
+            <button class="proj-link-btn" onclick="event.stopPropagation();openModalTab('feedconnect','gallery')">🖼 Galerie</button>
+            <button class="proj-link-btn" onclick="event.stopPropagation();openModalTab('feedconnect','code')">{ } Code</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TWIFONE -->
+      <div class="proj-card fade-up" style="transition-delay:0.2s" onclick="openModal('twifone')">
+        <div class="proj-preview">
+          <div class="proj-preview-fallback">
+            <div class="proj-num">03</div>
+            <span class="proj-icon-big">📞</span>
+            <div class="proj-scan"></div>
+          </div>
+          <div class="proj-overlay">
+            <button class="overlay-btn overlay-btn-primary" onclick="event.stopPropagation();openModalTab('twifone','gallery')">🖼 Galerie</button>
+            <a class="overlay-btn overlay-btn-ghost" href="https://twifone.com" target="_blank" onclick="event.stopPropagation()">🔗 Live</a>
+          </div>
+        </div>
+        <div class="proj-info">
+          <div class="proj-title">Twifone</div>
+          <div class="proj-chips">
+            <span class="chip chip-violet">NestJS</span>
+            <span class="chip">Vue.js</span>
+            <span class="chip chip-amber">MongoDB</span>
+            <span class="chip">Twilio</span>
+          </div>
+          <div class="proj-desc" data-i18n="proj.twifone.desc">
+            Téléphonie cloud avec intégration Twilio. Gestion numéros, messagerie avancée, système Isomatrix.
+          </div>
+          <div class="proj-links">
+            <button class="proj-link-btn" onclick="event.stopPropagation();openModalTab('twifone','gallery')">🖼 Galerie</button>
+            <a class="proj-link-btn" href="https://twifone.com" target="_blank" onclick="event.stopPropagation()">🔗 twifone.com</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CENTRALCARE -->
+      <div class="proj-card fade-up" style="transition-delay:0.3s" onclick="openModal('centralcare')">
+        <div class="proj-preview">
+          <div class="proj-preview-fallback">
+            <div class="proj-num">04</div>
+            <span class="proj-icon-big">🏥</span>
+            <div class="proj-scan"></div>
+          </div>
+          <div class="proj-overlay">
+            <button class="overlay-btn overlay-btn-primary" onclick="event.stopPropagation();openModalTab('centralcare','gallery')">🖼 Galerie</button>
+            <a class="overlay-btn overlay-btn-ghost" href="https://centralcare.ostie.mg" target="_blank" onclick="event.stopPropagation()">🔗 Live</a>
+          </div>
+        </div>
+        <div class="proj-info">
+          <div class="proj-title">Centralcare — OSTIE MG</div>
+          <div class="proj-chips">
+            <span class="chip chip-violet">NestJS</span>
+            <span class="chip">Nuxt.js</span>
+            <span class="chip chip-amber">MongoDB</span>
+            <span class="chip chip-amber">Amazon S3</span>
+          </div>
+          <div class="proj-desc" data-i18n="proj.centralcare.desc">
+            App de santé, gestion sécurisée utilisateurs, stockage Amazon S3, sécurisation API avec @casl/ability.
+          </div>
+          <div class="proj-links">
+            <button class="proj-link-btn" onclick="event.stopPropagation();openModalTab('centralcare','gallery')">🖼 Galerie</button>
+            <a class="proj-link-btn" href="https://centralcare.ostie.mg" target="_blank" onclick="event.stopPropagation()">🔗 Live</a>
+            <button class="proj-link-btn" onclick="event.stopPropagation();openModalTab('centralcare','code')">{ } Code</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PEZANE -->
+      <div class="proj-card fade-up" style="transition-delay:0.4s" onclick="openModal('pezane')">
+        <div class="proj-preview">
+          <div class="proj-preview-fallback">
+            <div class="proj-num">05</div>
+            <span class="proj-icon-big">🛒</span>
+            <div class="proj-scan"></div>
+          </div>
+          <div class="proj-overlay">
+            <button class="overlay-btn overlay-btn-primary" onclick="event.stopPropagation();openModalTab('pezane','gallery')">🖼 Galerie</button>
+            <a class="overlay-btn overlay-btn-ghost" href="https://pezane.rapiera.com" target="_blank" onclick="event.stopPropagation()">🔗 Live</a>
+          </div>
+        </div>
+        <div class="proj-info">
+          <div class="proj-title">Marketplace Pezane</div>
+          <div class="proj-chips">
+            <span class="chip chip-violet">Laravel 9</span>
+            <span class="chip">Nuxt.js 2</span>
+            <span class="chip chip-amber">MySQL</span>
+          </div>
+          <div class="proj-desc" data-i18n="proj.pezane.desc">
+            Marketplace e-commerce complète : paiement, livraison, parrainage. API robuste Laravel + frontend Nuxt.js.
+          </div>
+          <div class="proj-links">
+            <a class="proj-link-btn" href="https://pezane.rapiera.com" target="_blank" onclick="event.stopPropagation()">🔗 Live</a>
+            <button class="proj-link-btn" onclick="event.stopPropagation();openModalTab('pezane','code')">{ } Code</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SOUPER DES NURSES -->
+      <div class="proj-card fade-up" style="transition-delay:0.5s" onclick="openModal('nurses')">
+        <div class="proj-preview">
+          <div class="proj-preview-fallback">
+            <div class="proj-num">06</div>
+            <span class="proj-icon-big">🎟️</span>
+            <div class="proj-scan"></div>
+          </div>
+          <div class="proj-overlay">
+            <button class="overlay-btn overlay-btn-primary" onclick="event.stopPropagation();openModalTab('nurses','gallery')">🖼 Galerie</button>
+            <button class="overlay-btn overlay-btn-ghost" onclick="event.stopPropagation();openModalTab('nurses','code')">{ } Code</button>
+          </div>
+        </div>
+        <div class="proj-info">
+          <div class="proj-title">Souper des Nurses</div>
+          <div class="proj-chips">
+            <span class="chip chip-violet">Symfony</span>
+            <span class="chip">API Platform</span>
+            <span class="chip chip-emerald">Docker</span>
+            <span class="chip chip-emerald">CI/CD</span>
+          </div>
+          <div class="proj-desc" data-i18n="proj.nurses.desc">
+            Billetterie électronique unique. API Symfony/API Platform. Pipeline DevOps complet Docker + CI/CD.
+          </div>
+          <div class="proj-links">
+            <button class="proj-link-btn" onclick="event.stopPropagation();openModalTab('nurses','gallery')">🖼 Galerie</button>
+            <button class="proj-link-btn" onclick="event.stopPropagation();openModalTab('nurses','code')">{ } Code</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ EDUCATION ═══════ -->
+<section id="education">
+  <div class="container">
+    <div class="label fade-up" data-i18n="edu.label">Formation académique</div>
+    <h2 class="section-title fade-up" data-i18n="edu.title">Parcours scolaire</h2>
+    <div class="edu-grid">
+      <div class="edu-card fade-up">
+        <div class="edu-ico">🎓</div>
+        <div>
+          <div class="edu-yr">2020 — 2021</div>
+          <div class="edu-deg">Master II Informatique</div>
+          <div class="edu-sch">Université Antananarivo — Info Centre de la salle</div>
+        </div>
+      </div>
+      <div class="edu-card fade-up" style="transition-delay:0.1s">
+        <div class="edu-ico">💻</div>
+        <div>
+          <div class="edu-yr">Diplôme 2018</div>
+          <div class="edu-deg">Développeur Logiciel Informatique</div>
+          <div class="edu-sch">Athénée Saint Joseph Antsirabe — 3 ans</div>
+        </div>
+      </div>
+      <div class="edu-card fade-up" style="transition-delay:0.2s">
+        <div class="edu-ico">📚</div>
+        <div>
+          <div class="edu-yr">Baccalauréat 2015</div>
+          <div class="edu-deg">Bacc Série D</div>
+          <div class="edu-sch">Lycée Arcade Antananarivo</div>
+        </div>
+      </div>
+      <div class="edu-card fade-up" style="transition-delay:0.3s">
+        <div class="edu-ico">🏫</div>
+        <div>
+          <div class="edu-yr">BEPC</div>
+          <div class="edu-deg">Brevet d'Études du Premier Cycle</div>
+          <div class="edu-sch">Saint Joseph Ambatondrazaka</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:3.5rem">
+      <div class="label" data-i18n="edu.stages">Stages & formations</div>
+    </div>
+    <div class="edu-grid" style="margin-top:1.5rem">
+      <div class="edu-card fade-up">
+        <div class="edu-ico">🧑‍💼</div>
+        <div>
+          <div class="edu-yr">Nov 2020 – Fév 2021</div>
+          <div class="edu-deg">Stage Développeur Laravel</div>
+          <div class="edu-sch">Positive Trading Group — PayPal (Laravel 6 + Vue.js 2)</div>
+        </div>
+      </div>
+      <div class="edu-card fade-up" style="transition-delay:0.1s">
+        <div class="edu-ico">🌐</div>
+        <div>
+          <div class="edu-yr">Mars – Juin 2019</div>
+          <div class="edu-deg">Stage Développeur CMS</div>
+          <div class="edu-sch">TANATEAM — WordPress, PrestaShop, Symfony 3.4</div>
+        </div>
+      </div>
+      <div class="edu-card fade-up" style="transition-delay:0.2s">
+        <div class="edu-ico">🖥</div>
+        <div>
+          <div class="edu-yr">Avril – Juin 2018</div>
+          <div class="edu-deg">Stage Développeur Silex (PHP)</div>
+          <div class="edu-sch">WEBTO3 — Application CRM Silex + SQL</div>
+        </div>
+      </div>
+      <div class="edu-card fade-up" style="transition-delay:0.3s">
+        <div class="edu-ico">🖨</div>
+        <div>
+          <div class="edu-yr">Oct 2019 – Nov 2020</div>
+          <div class="edu-deg">Opérateur de saisie</div>
+          <div class="edu-sch">Arena Viva Ivandry, Antananarivo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ CONTACT ═══════ -->
+<section id="contact">
+  <div class="container">
+    <div class="label fade-up" data-i18n="contact.label">Travaillons ensemble</div>
+    <h2 class="section-title fade-up" data-i18n="contact.title">Démarrer un projet</h2>
+    <div class="contact-grid">
+      <div class="fade-up">
+        <p style="font-size:1.05rem;line-height:1.8;max-width:400px;margin-bottom:1.5rem" data-i18n="contact.desc">
+          Un projet en tête ? Disponible en remote ou freelance. Répondre dans les 24h.
+        </p>
+        <div class="contact-items">
+          <a href="mailto:maelrbm3@gmail.com" class="contact-item">
+            <div class="c-ico">📧</div>
+            <div><div class="c-label">Email</div><div class="c-val">maelrbm3@gmail.com</div></div>
+          </a>
+          <a href="https://wa.me/261346895851" target="_blank" class="contact-item">
+            <div class="c-ico">💬</div>
+            <div><div class="c-label">WhatsApp</div><div class="c-val">+261 34 689 5851</div></div>
+          </a>
+          <a href="https://maelrbmfolio.netlify.app/" target="_blank" class="contact-item">
+            <div class="c-ico">🔗</div>
+            <div><div class="c-label">Portfolio</div><div class="c-val">maelrbmfolio.netlify.app</div></div>
+          </a>
+          <div class="contact-item">
+            <div class="c-ico">📍</div>
+            <div><div class="c-label" data-i18n="contact.location">Localisation</div><div class="c-val">Akadindramamy, Madagascar</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form fade-up" style="transition-delay:0.15s">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-lbl" data-i18n="contact.fname">Prénom</label>
+            <input type="text" class="form-inp" placeholder="Jean" id="fname">
+          </div>
+          <div class="form-group">
+            <label class="form-lbl" data-i18n="contact.lname">Nom</label>
+            <input type="text" class="form-inp" placeholder="Dupont" id="lname">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-lbl">Email</label>
+          <input type="email" class="form-inp" placeholder="jean@exemple.com" id="femail">
+        </div>
+        <div class="form-group">
+          <label class="form-lbl" data-i18n="contact.subject">Sujet</label>
+          <input type="text" class="form-inp" id="fsubject">
+        </div>
+        <div class="form-group">
+          <label class="form-lbl" data-i18n="contact.message">Message</label>
+          <textarea class="form-ta" id="fmessage" placeholder="Décrivez votre projet..."></textarea>
+        </div>
+        <button class="btn btn-primary" onclick="sendMsg()" style="width:100%;justify-content:center;padding:0.9rem">
+          <span data-i18n="contact.send">Envoyer →</span>
+        </button>
+        <div class="form-msg" id="formMsg" data-i18n="contact.sent">
+          ✓ Merci ! Votre client email va s'ouvrir.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="foot-inner">
+      <div class="foot-copy">© 2026 Ismael Rabemiafara Andrianiraisana — Full Stack Developer</div>
+      <div class="foot-links">
+        <a href="mailto:maelrbm3@gmail.com">Email</a>
+        <a href="https://wa.me/261346895851" target="_blank">WhatsApp</a>
+        <a href="https://maelrbmfolio.netlify.app/" target="_blank">Portfolio</a>
+        <a href="#hero">↑ Top</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════ MODAL ═══════ -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">Projet</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-tabs" id="modal-tabs">
+      <button class="modal-tab active" onclick="switchTab('gallery')">🖼 Galerie</button>
+      <button class="modal-tab" onclick="switchTab('code')">{ } Code</button>
+      <button class="modal-tab" onclick="switchTab('info')">ℹ Info</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+/* ══════════════════ i18n ══════════════════ */
+const i18n = {
+  fr: {
+    'nav.home': 'Accueil', 'nav.about': 'À Propos', 'nav.skills': 'Skills',
+    'nav.experience': 'Expérience', 'nav.projects': 'Projets',
+    'nav.education': 'Formation', 'nav.contact': 'Contact',
+    'hero.badge': 'Disponible — Remote & Freelance',
+    'hero.role': 'Full Stack Developer · Laravel · Nuxt · Flutter',
+    'hero.desc': 'Je transforme vos idées en <strong>plateformes performantes et évolutives</strong>. Expert full stack — frontend élégant, backend robuste, déploiement cloud sécurisé.',
+    'hero.cta1': 'Voir mes projets', 'hero.cta2': 'Planifier un appel',
+    'hero.stat1': "Années d'exp.", 'hero.stat2': 'Projets livrés', 'hero.stat3': 'Technologies',
+    'hero.avail': 'Disponibilité', 'hero.availVal': 'Open to work', 'hero.location': 'Localisation',
+    'about.label': 'À propos de moi', 'about.title': 'De la conception<br>au déploiement',
+    'about.p1': 'Passionné par le développement full stack, je suis <strong>RABEMIAFARA Andrianiraisana Ismael</strong>, développeur basé à Madagascar. Je crée des solutions pensées pour l\'utilisateur, la sécurité et la scalabilité.',
+    'about.p2': 'Mon expertise couvre l\'intégralité du cycle de vie d\'une application : Frontend (Nuxt/Vue), Backend (Laravel, Symfony, NestJS), Mobile (Flutter, Ionic), et DevOps (Docker, CI/CD).',
+    'about.p3': 'Projets pour la France, Madagascar et l\'Europe, avec une approche cloud multi-régions.',
+    'about.location': 'Localisation', 'about.avail': 'Disponibilité', 'about.availVal': 'Disponible',
+    'about.langs': 'Langues', 'about.work': 'Mode de travail',
+    'about.cta1': 'Me contacter →', 'about.cta2': 'Portfolio ↗',
+    'skills.label': 'Compétences techniques', 'skills.title': 'Ma stack de prédilection',
+    'skills.frontend': 'Frontend', 'skills.backend': 'Backend', 'skills.mobile': 'Mobile',
+    'skills.db': 'Bases de données', 'skills.devops': 'DevOps & Cloud',
+    'skills.design': 'Design & Outils', 'skills.languages': 'Langues parlées',
+    'exp.label': 'Parcours professionnel', 'exp.title': 'Expérience',
+    'proj.label': 'Réalisations', 'proj.title': 'Projets notables',
+    'proj.hint': 'Cliquez sur un projet pour voir les captures et le code',
+    'proj.voomgle.desc': 'Plateforme véhicules : app mobile Flutter avec chat temps réel, appels, suivi immatriculations. Intégration API SIV. Plateforme web miroir complète.',
+    'proj.feedconnect.desc': 'Gestion documentaire avec signatures électroniques Zoho Sign, automatisation workflows comptables, conteneurisation Docker.',
+    'proj.twifone.desc': 'Téléphonie cloud avec intégration Twilio. Gestion numéros, messagerie avancée, système Isomatrix.',
+    'proj.centralcare.desc': 'App de santé, gestion sécurisée utilisateurs, stockage Amazon S3, sécurisation API avec @casl/ability.',
+    'proj.pezane.desc': 'Marketplace e-commerce complète : paiement, livraison, parrainage. API robuste Laravel + frontend Nuxt.js.',
+    'proj.nurses.desc': 'Billetterie électronique unique. API Symfony/API Platform. Pipeline DevOps complet Docker + CI/CD.',
+    'edu.label': 'Formation académique', 'edu.title': 'Parcours scolaire', 'edu.stages': 'Stages & formations',
+    'contact.label': 'Travaillons ensemble', 'contact.title': 'Démarrer un projet',
+    'contact.desc': 'Un projet en tête ? Disponible en remote ou freelance. Répondre dans les 24h.',
+    'contact.location': 'Localisation', 'contact.fname': 'Prénom', 'contact.lname': 'Nom',
+    'contact.subject': 'Sujet', 'contact.message': 'Message', 'contact.send': 'Envoyer →',
+    'contact.sent': '✓ Merci ! Votre client email va s\'ouvrir.',
+  },
+  en: {
+    'nav.home': 'Home', 'nav.about': 'About', 'nav.skills': 'Skills',
+    'nav.experience': 'Experience', 'nav.projects': 'Projects',
+    'nav.education': 'Education', 'nav.contact': 'Contact',
+    'hero.badge': 'Available — Remote & Freelance',
+    'hero.role': 'Full Stack Developer · Laravel · Nuxt · Flutter',
+    'hero.desc': 'I turn your ideas into <strong>high-performance, scalable platforms</strong>. Full stack expert — elegant frontend, robust backend, secure cloud deployment.',
+    'hero.cta1': 'See my projects', 'hero.cta2': 'Schedule a call',
+    'hero.stat1': 'Years of exp.', 'hero.stat2': 'Projects delivered', 'hero.stat3': 'Technologies',
+    'hero.avail': 'Availability', 'hero.availVal': 'Open to work', 'hero.location': 'Location',
+    'about.label': 'About me', 'about.title': 'From design<br>to deployment',
+    'about.p1': 'Passionate about full stack development, I am <strong>RABEMIAFARA Andrianiraisana Ismael</strong>, a developer based in Madagascar. I build user-focused, secure, scalable solutions.',
+    'about.p2': 'My expertise covers the full application lifecycle: Frontend (Nuxt/Vue), Backend (Laravel, Symfony, NestJS), Mobile (Flutter, Ionic), and DevOps (Docker, CI/CD).',
+    'about.p3': 'Projects for France, Madagascar and Europe, with a cloud-first, multi-region approach.',
+    'about.location': 'Location', 'about.avail': 'Availability', 'about.availVal': 'Available',
+    'about.langs': 'Languages', 'about.work': 'Work mode',
+    'about.cta1': 'Contact me →', 'about.cta2': 'Portfolio ↗',
+    'skills.label': 'Technical skills', 'skills.title': 'My preferred stack',
+    'skills.frontend': 'Frontend', 'skills.backend': 'Backend', 'skills.mobile': 'Mobile',
+    'skills.db': 'Databases', 'skills.devops': 'DevOps & Cloud',
+    'skills.design': 'Design & Tools', 'skills.languages': 'Spoken languages',
+    'exp.label': 'Career path', 'exp.title': 'Experience',
+    'proj.label': 'Portfolio', 'proj.title': 'Notable projects',
+    'proj.hint': 'Click a project to see screenshots and code',
+    'proj.voomgle.desc': 'Vehicle platform: Flutter mobile app with real-time chat, calls, registration tracking. SIV API integration. Full web mirror platform.',
+    'proj.feedconnect.desc': 'Document management with Zoho Sign e-signatures, accounting workflow automation, Docker containerization.',
+    'proj.twifone.desc': 'Cloud telephony with Twilio integration. Number management, advanced messaging, Isomatrix system.',
+    'proj.centralcare.desc': 'Health app, secure user management, Amazon S3 storage, API security with @casl/ability.',
+    'proj.pezane.desc': 'Full e-commerce marketplace: payments, delivery, referral. Robust Laravel API + Nuxt.js frontend.',
+    'proj.nurses.desc': 'Unique e-ticketing system. Symfony/API Platform API. Full DevOps pipeline with Docker + CI/CD.',
+    'edu.label': 'Academic background', 'edu.title': 'Education', 'edu.stages': 'Internships & Training',
+    'contact.label': 'Let\'s work together', 'contact.title': 'Start a project',
+    'contact.desc': 'Have a project in mind? Available remotely or as a freelancer. Reply within 24h.',
+    'contact.location': 'Location', 'contact.fname': 'First name', 'contact.lname': 'Last name',
+    'contact.subject': 'Subject', 'contact.message': 'Message', 'contact.send': 'Send →',
+    'contact.sent': '✓ Thank you! Your email client will open.',
+  }
+};
+
+let lang = 'fr';
+function setLang(l) {
+  lang = l;
+  document.querySelectorAll('[data-lang-btn]').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.lang-btn').forEach((b, i) => {
+    b.classList.toggle('active', (i === 0 && l === 'fr') || (i === 1 && l === 'en'));
+  });
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (i18n[l][key]) el.textContent = i18n[l][key];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.dataset.i18nHtml;
+    if (i18n[l][key]) el.innerHTML = i18n[l][key];
+  });
+  document.documentElement.lang = l;
+}
+
+/* ══════════════════ THEME ══════════════════ */
+function toggleTheme() {
+  const html = document.documentElement;
+  const btn = document.getElementById('themeBtn');
+  if (html.dataset.theme === 'dark') {
+    html.dataset.theme = 'light';
+    btn.textContent = '☀️';
+  } else {
+    html.dataset.theme = 'dark';
+    btn.textContent = '🌙';
+  }
+}
+
+/* ══════════════════ MOBILE NAV ══════════════════ */
+function openMobile() {
+  document.getElementById('mobileNav').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeMobile() {
+  document.getElementById('mobileNav').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ══════════════════ CURSOR ══════════════════ */
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+});
+(function animRing() {
+  rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  requestAnimationFrame(animRing);
+})();
+document.querySelectorAll('a,button,.proj-card,.skill-block,.edu-card').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.style.width = '20px'; cursor.style.height = '20px';
+    ring.style.width = '55px'; ring.style.height = '55px';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.style.width = '8px'; cursor.style.height = '8px';
+    ring.style.width = '32px'; ring.style.height = '32px';
+  });
+});
+
+/* ══════════════════ SCROLL ══════════════════ */
+window.addEventListener('scroll', () => {
+  const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+  document.getElementById('progressBar').style.width = pct + '%';
+});
+
+/* ══════════════════ FADE UP ══════════════════ */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.08 });
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+const tlObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.tl-item').forEach(el => tlObs.observe(el));
+
+/* ══════════════════ STATS COUNTER ══════════════════ */
+function countUp(el, target, dur = 1500) {
+  let s = 0;
+  const step = ts => {
+    if (!s) s = ts;
+    const p = Math.min((ts - s) / dur, 1);
+    el.textContent = Math.floor(p * target) + '+';
+    if (p < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+const statsEl = document.querySelector('.hero-stats');
+if (statsEl) {
+  new IntersectionObserver(([e]) => {
+    if (e.isIntersecting) {
+      countUp(document.getElementById('stat1'), 5);
+      countUp(document.getElementById('stat2'), 10);
+      countUp(document.getElementById('stat3'), 8);
+    }
+  }, { threshold: 0.5 }).observe(statsEl);
+}
+
+/* ══════════════════ CONTACT ══════════════════ */
+function sendMsg() {
+  const e = document.getElementById('femail').value;
+  const m = document.getElementById('fmessage').value;
+  if (!e || !m) { alert(lang === 'fr' ? 'Remplissez email et message.' : 'Please fill email and message.'); return; }
+  const fn = document.getElementById('fname').value;
+  const ln = document.getElementById('lname').value;
+  const s = document.getElementById('fsubject').value;
+  window.location.href = `mailto:maelrbm3@gmail.com?subject=${encodeURIComponent(s||'Contact Portfolio')}&body=${encodeURIComponent(`From: ${fn} ${ln}\nEmail: ${e}\n\n${m}`)}`;
+  document.getElementById('formMsg').style.display = 'block';
+}
+
+/* ══════════════════ PROJECT MODAL ══════════════════ */
+const projectData = {
+  voomgle: {
+    title: 'Voomgle — Automotos',
+    gallery: [
+      { icon: '🚗', label: 'App Mobile Flutter' },
+      { icon: '💬', label: 'Chat Temps Réel' },
+      { icon: '🔍', label: 'Recherche Véhicule' },
+      { icon: '📱', label: 'Interface Web Miroir' },
+    ],
+    code: `<span class="code-comment">// Flutter — Voomgle App — Chat Service</span>
+
+<span class="code-key">class</span> <span class="code-fn">ChatService</span> {
+  <span class="code-key">final</span> _supabase = Supabase.instance.client;
+
+  <span class="code-comment">// Connexion temps réel via WebSocket</span>
+  Stream&lt;List&lt;Message&gt;&gt; <span class="code-fn">getMessages</span>(<span class="code-key">String</span> roomId) {
+    <span class="code-key">return</span> _supabase
+      .from(<span class="code-str">'messages'</span>)
+      .stream(primaryKey: [<span class="code-str">'id'</span>])
+      .eq(<span class="code-str">'room_id'</span>, roomId)
+      .order(<span class="code-str">'created_at'</span>)
+      .map((rows) => rows
+        .map((r) => Message.fromJson(r))
+        .toList());
+  }
+
+  <span class="code-comment">// Intégration API SIV immatriculation</span>
+  Future&lt;Vehicle&gt; <span class="code-fn">lookupPlate</span>(<span class="code-key">String</span> plate) async {
+    <span class="code-key">final</span> res = <span class="code-key">await</span> http.get(
+      Uri.parse(<span class="code-str">'https://api-siv.fr/v1/vehicles/$plate'</span>),
+      headers: {<span class="code-str">'Authorization'</span>: <span class="code-str">'Bearer $token'</span>},
+    );
+    <span class="code-key">return</span> Vehicle.fromJson(jsonDecode(res.body));
+  }
+}
+
+<span class="code-comment">// Laravel — API Voomgle</span>
+Route::<span class="code-fn">group</span>([<span class="code-str">'prefix'</span> => <span class="code-str">'api/v1'</span>], function() {
+  Route::<span class="code-fn">apiResource</span>(<span class="code-str">'vehicles'</span>, VehicleController::<span class="code-key">class</span>);
+  Route::<span class="code-fn">get</span>(<span class="code-str">'chat/rooms/{id}/messages'</span>, [ChatController::<span class="code-key">class</span>, <span class="code-str">'index'</span>]);
+  Route::<span class="code-fn">post</span>(<span class="code-str">'chat/messages'</span>, [ChatController::<span class="code-key">class</span>, <span class="code-str">'store'</span>]);
+});`,
+    info: `
+      <div class="info-grid">
+        <div class="info-item"><div class="info-key">Type</div><div class="info-val">Mobile + Web</div></div>
+        <div class="info-item"><div class="info-key">Stack</div><div class="info-val">Flutter, Laravel, Nuxt.js</div></div>
+        <div class="info-item"><div class="info-key">Période</div><div class="info-val">Mars – Sept 2024</div></div>
+        <div class="info-item"><div class="info-key">Entreprise</div><div class="info-val">Fibonacci</div></div>
+      </div>
+      <br>
+      <p style="font-size:0.9rem;color:var(--text);line-height:1.8">
+        Plateforme véhicule complète : app Flutter pour chat temps réel entre clients, garages et loueurs. Intégration API SIV pour pré-remplissage automatique des données. Plateforme web Nuxt.js en miroir avec gestion annonces, garages, carnet d'entretien.
+      </p>`
+  },
+  feedconnect: {
+    title: 'Feed Connect',
+    gallery: [
+      { icon: '✍️', label: 'Signature Zoho Sign' },
+      { icon: '📄', label: 'Documents Légaux' },
+      { icon: '⚙️', label: 'Workflows Comptables' },
+      { icon: '🐳', label: 'Docker Deploy' },
+    ],
+    code: `<span class="code-comment">// Laravel — Zoho Sign Integration</span>
+
+<span class="code-key">class</span> <span class="code-fn">ZohoSignService</span>
+{
+  <span class="code-key">private string</span> $baseUrl = <span class="code-str">'https://sign.zoho.com/api/v1'</span>;
+
+  <span class="code-key">public function</span> <span class="code-fn">sendDocument</span>(Document $doc, User $signer): array
+  {
+    $response = Http::<span class="code-fn">withToken</span>($this-&gt;<span class="code-fn">getAccessToken</span>())
+      -&gt;<span class="code-fn">post</span>(<span class="code-str">"$this->baseUrl/requests"</span>, [
+        <span class="code-str">'requests'</span> => [
+          <span class="code-str">'request_name'</span> => $doc-&gt;title,
+          <span class="code-str">'actions'</span>      => [[
+            <span class="code-str">'action_type'</span>   => <span class="code-str">'SIGN'</span>,
+            <span class="code-str">'recipient_name'</span> => $signer-&gt;name,
+            <span class="code-str">'recipient_email'</span>=> $signer-&gt;email,
+          ]],
+        ]
+      ]);
+    <span class="code-key">return</span> $response-&gt;<span class="code-fn">json</span>();
+  }
+}
+
+<span class="code-comment">// Docker Compose — Feed Connect</span>
+<span class="code-key">version:</span> <span class="code-str">'3.8'</span>
+<span class="code-key">services:</span>
+  <span class="code-key">app:</span>
+    <span class="code-key">build:</span> <span class="code-str">./</span>
+    <span class="code-key">volumes:</span> [<span class="code-str">'.:/app'</span>]
+    <span class="code-key">depends_on:</span> [mysql, redis]
+  <span class="code-key">nginx:</span>
+    <span class="code-key">image:</span> <span class="code-str">nginx:alpine</span>
+    <span class="code-key">ports:</span> [<span class="code-str">'80:80'</span>, <span class="code-str">'443:443'</span>]`,
+    info: `
+      <div class="info-grid">
+        <div class="info-item"><div class="info-key">Type</div><div class="info-val">SaaS B2B</div></div>
+        <div class="info-item"><div class="info-key">Stack</div><div class="info-val">Laravel, Vue.js, Docker</div></div>
+        <div class="info-item"><div class="info-key">Intégration</div><div class="info-val">Zoho Sign API</div></div>
+        <div class="info-item"><div class="info-key">Entreprise</div><div class="info-val">MG Consulting</div></div>
+      </div>`
+  },
+  twifone: {
+    title: 'Twifone',
+    gallery: [
+      { icon: '📞', label: 'Interface Appels' },
+      { icon: '💬', label: 'Messagerie Avancée' },
+      { icon: '#️⃣', label: 'Gestion Numéros' },
+      { icon: '📊', label: 'Dashboard Analytics' },
+    ],
+    code: `<span class="code-comment">// NestJS — Twilio Service</span>
+
+<span class="code-key">@Injectable</span>()
+<span class="code-key">export class</span> <span class="code-fn">TwilioService</span> {
+  <span class="code-key">private</span> client: Twilio.Twilio;
+
+  <span class="code-key">constructor</span>(<span class="code-key">private</span> config: ConfigService) {
+    <span class="code-key">this</span>.client = Twilio(
+      config.<span class="code-fn">get</span>(<span class="code-str">'TWILIO_SID'</span>),
+      config.<span class="code-fn">get</span>(<span class="code-str">'TWILIO_TOKEN'</span>)
+    );
+  }
+
+  <span class="code-key">async</span> <span class="code-fn">purchaseNumber</span>(areaCode: <span class="code-key">string</span>) {
+    <span class="code-key">const</span> available = <span class="code-key">await</span> <span class="code-key">this</span>.client
+      .availablePhoneNumbers(<span class="code-str">'FR'</span>)
+      .local.<span class="code-fn">list</span>({ areaCode, limit: 5 });
+
+    <span class="code-key">return</span> <span class="code-key">this</span>.client.incomingPhoneNumbers
+      .<span class="code-fn">create</span>({ phoneNumber: available[<span class="code-val">0</span>].phoneNumber });
+  }
+
+  <span class="code-key">async</span> <span class="code-fn">sendSms</span>(to: <span class="code-key">string</span>, body: <span class="code-key">string</span>) {
+    <span class="code-key">return</span> <span class="code-key">this</span>.client.messages.<span class="code-fn">create</span>({
+      from: process.env.TWILIO_NUMBER,
+      to, body
+    });
+  }
+}`,
+    info: `
+      <div class="info-grid">
+        <div class="info-item"><div class="info-key">Type</div><div class="info-val">SaaS Téléphonie Cloud</div></div>
+        <div class="info-item"><div class="info-key">Stack</div><div class="info-val">NestJS, Vue.js, MongoDB</div></div>
+        <div class="info-item"><div class="info-key">Intégration</div><div class="info-val">Twilio API</div></div>
+        <div class="info-item"><div class="info-key">Live</div><div class="info-val"><a href="https://twifone.com" target="_blank" style="color:var(--chrome)">twifone.com ↗</a></div></div>
+      </div>`
+  },
+  centralcare: {
+    title: 'Centralcare — OSTIE MG',
+    gallery: [
+      { icon: '🏥', label: 'Dashboard Santé' },
+      { icon: '👤', label: 'Gestion Utilisateurs' },
+      { icon: '📁', label: 'Stockage S3' },
+      { icon: '🔒', label: 'Sécurité CASL' },
+    ],
+    code: `<span class="code-comment">// NestJS — Amazon S3 Upload Service</span>
+
+<span class="code-key">@Injectable</span>()
+<span class="code-key">export class</span> <span class="code-fn">S3Service</span> {
+  <span class="code-key">private</span> s3: AWS.S3;
+
+  <span class="code-key">constructor</span>() {
+    <span class="code-key">this</span>.s3 = <span class="code-key">new</span> AWS.<span class="code-fn">S3</span>({
+      region: <span class="code-str">'eu-west-1'</span>,
+      credentials: <span class="code-key">new</span> AWS.SharedIniFileCredentials()
+    });
+  }
+
+  <span class="code-key">async</span> <span class="code-fn">uploadFile</span>(file: Express.Multer.File): Promise&lt;string&gt; {
+    <span class="code-key">const</span> key = <span class="code-str">\`centralcare/\${Date.now()}-\${file.originalname}\`</span>;
+    <span class="code-key">await</span> <span class="code-key">this</span>.s3.<span class="code-fn">upload</span>({
+      Bucket: process.env.S3_BUCKET,
+      Key: key, Body: file.buffer,
+      ContentType: file.mimetype
+    }).<span class="code-fn">promise</span>();
+    <span class="code-key">return</span> <span class="code-str">\`https://\${process.env.S3_BUCKET}.s3.amazonaws.com/\${key}\`</span>;
+  }
+}
+
+<span class="code-comment">// CASL Ability Guard</span>
+<span class="code-key">export function</span> <span class="code-fn">defineAbility</span>(user: User) {
+  <span class="code-key">const</span> { can, cannot, build } = <span class="code-key">new</span> <span class="code-fn">AbilityBuilder</span>(AppAbility);
+  <span class="code-key">if</span> (user.role === <span class="code-str">'admin'</span>) {
+    can(<span class="code-str">'manage'</span>, <span class="code-str">'all'</span>);
+  } <span class="code-key">else</span> {
+    can([<span class="code-str">'read'</span>, <span class="code-str">'update'</span>], <span class="code-str">'Profile'</span>, { userId: user.id });
+    cannot(<span class="code-str">'delete'</span>, <span class="code-str">'Patient'</span>);
+  }
+  <span class="code-key">return</span> <span class="code-fn">build</span>();
+}`,
+    info: `
+      <div class="info-grid">
+        <div class="info-item"><div class="info-key">Type</div><div class="info-val">App de Santé</div></div>
+        <div class="info-item"><div class="info-key">Stack</div><div class="info-val">NestJS, Nuxt.js, MongoDB</div></div>
+        <div class="info-item"><div class="info-key">Storage</div><div class="info-val">Amazon S3</div></div>
+        <div class="info-item"><div class="info-key">Live</div><div class="info-val"><a href="https://centralcare.ostie.mg" target="_blank" style="color:var(--chrome)">centralcare.ostie.mg ↗</a></div></div>
+      </div>`
+  },
+  pezane: {
+    title: 'Marketplace Pezane',
+    gallery: [
+      { icon: '🛒', label: 'Catalogue Produits' },
+      { icon: '💳', label: 'Système de Paiement' },
+      { icon: '🚚', label: 'Gestion Livraison' },
+      { icon: '🎁', label: 'Programme Parrainage' },
+    ],
+    code: `<span class="code-comment">// Laravel 9 — Marketplace API</span>
+
+<span class="code-key">class</span> <span class="code-fn">OrderController</span> extends <span class="code-fn">Controller</span>
+{
+  <span class="code-key">public function</span> <span class="code-fn">store</span>(StoreOrderRequest $request): JsonResponse
+  {
+    DB::<span class="code-fn">transaction</span>(<span class="code-key">function</span>() <span class="code-key">use</span> ($request) {
+      $order = Order::<span class="code-fn">create</span>([
+        <span class="code-str">'user_id'</span>    => auth()-&gt;<span class="code-fn">id</span>(),
+        <span class="code-str">'status'</span>     => <span class="code-str">'pending'</span>,
+        <span class="code-str">'total'</span>      => $request-&gt;<span class="code-fn">computeTotal</span>(),
+        <span class="code-str">'referral_id'</span>=> $request-&gt;referral_code,
+      ]);
+
+      <span class="code-comment">// Traitement parrainage</span>
+      <span class="code-key">if</span> ($referrer = User::<span class="code-fn">byReferral</span>($order-&gt;referral_id)) {
+        $referrer-&gt;<span class="code-fn">addCommission</span>($order-&gt;total * <span class="code-val">0.05</span>);
+      }
+
+      <span class="code-comment">// Déclenchement livraison</span>
+      <span class="code-fn">dispatch</span>(<span class="code-key">new</span> <span class="code-fn">ProcessDelivery</span>($order));
+    });
+    <span class="code-key">return</span> <span class="code-fn">response</span>()-&gt;<span class="code-fn">json</span>(['message' => <span class="code-str">'Order placed'</span>], <span class="code-val">201</span>);
+  }
+}`,
+    info: `
+      <div class="info-grid">
+        <div class="info-item"><div class="info-key">Type</div><div class="info-val">E-commerce / Marketplace</div></div>
+        <div class="info-item"><div class="info-key">Stack</div><div class="info-val">Laravel 9, Nuxt.js 2, MySQL</div></div>
+        <div class="info-item"><div class="info-key">Fonctions</div><div class="info-val">Paiement, Livraison, Parrainage</div></div>
+        <div class="info-item"><div class="info-key">Live</div><div class="info-val"><a href="https://pezane.rapiera.com" target="_blank" style="color:var(--chrome)">pezane.rapiera.com ↗</a></div></div>
+      </div>`
+  },
+  nurses: {
+    title: 'Souper des Nurses',
+    gallery: [
+      { icon: '🎟️', label: 'Billetterie Électronique' },
+      { icon: '📱', label: 'QR Code Scanner' },
+      { icon: '📊', label: 'Dashboard Événement' },
+      { icon: '🚀', label: 'Pipeline CI/CD' },
+    ],
+    code: `<span class="code-comment">// Symfony — Billetterie API Platform</span>
+
+<span class="code-key">#[ApiResource]</span>
+<span class="code-key">#[Get, Post, GetCollection]</span>
+<span class="code-key">class</span> <span class="code-fn">Ticket</span>
+{
+  <span class="code-key">private</span> Uuid $id;
+  <span class="code-key">private</span> string $code;
+  <span class="code-key">private bool</span> $used = <span class="code-val">false</span>;
+  <span class="code-key">private</span> ?DateTimeImmutable $usedAt = <span class="code-val">null</span>;
+}
+
+<span class="code-comment">// TicketService — Vérification unique</span>
+<span class="code-key">class</span> <span class="code-fn">TicketService</span>
+{
+  <span class="code-key">public function</span> <span class="code-fn">validate</span>(<span class="code-key">string</span> $code): TicketResult
+  {
+    $ticket = $this-&gt;repo-&gt;<span class="code-fn">findByCode</span>($code);
+    <span class="code-key">if</span> (!$ticket) <span class="code-key">throw new</span> TicketNotFoundException();
+    <span class="code-key">if</span> ($ticket-&gt;isUsed()) <span class="code-key">throw new</span> TicketAlreadyUsedException();
+    $ticket-&gt;<span class="code-fn">markAsUsed</span>();
+    <span class="code-key">return</span> <span class="code-key">new</span> TicketResult($ticket, <span class="code-str">'VALID'</span>);
+  }
+}
+
+<span class="code-comment"># GitHub Actions — CI/CD</span>
+<span class="code-key">name:</span> Deploy Nurses
+<span class="code-key">on:</span>
+  <span class="code-key">push:</span>
+    <span class="code-key">branches:</span> [main]
+<span class="code-key">jobs:</span>
+  <span class="code-key">deploy:</span>
+    <span class="code-key">steps:</span>
+      - uses: actions/checkout@v3
+      - run: docker compose up --build -d`,
+    info: `
+      <div class="info-grid">
+        <div class="info-item"><div class="info-key">Type</div><div class="info-val">Event Management</div></div>
+        <div class="info-item"><div class="info-key">Stack</div><div class="info-val">Symfony, API Platform, Docker</div></div>
+        <div class="info-item"><div class="info-key">DevOps</div><div class="info-val">CI/CD GitHub Actions</div></div>
+        <div class="info-item"><div class="info-key">Entreprise</div><div class="info-val">MG Consulting</div></div>
+      </div>`
+  }
+};
+
+let currentProject = null;
+let currentTab = 'gallery';
+
+function openModal(projId) {
+  currentProject = projId;
+  currentTab = 'gallery';
+  renderModal();
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function openModalTab(projId, tab) {
+  currentProject = projId;
+  currentTab = tab;
+  renderModal();
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function renderModal() {
+  const p = projectData[currentProject];
+  document.getElementById('modal-title').textContent = p.title;
+  // Update tabs
+  document.querySelectorAll('.modal-tab').forEach((t, i) => {
+    const tabs = ['gallery', 'code', 'info'];
+    t.classList.toggle('active', tabs[i] === currentTab);
+  });
+  // Render body
+  const body = document.getElementById('modal-body');
+  if (currentTab === 'gallery') {
+    body.innerHTML = `<div class="modal-gallery">${p.gallery.map(img => `
+      <div class="gallery-img" title="${img.label}">
+        <div style="text-align:center">
+          <div style="font-size:3.5rem">${img.icon}</div>
+          <div style="font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--text-soft);letter-spacing:0.1em;margin-top:0.5rem">${img.label}</div>
+        </div>
+      </div>`).join('')}</div>
+      <p style="margin-top:1.2rem;font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--text-soft);letter-spacing:0.08em">
+        💡 Ajoutez vos vraies captures en remplaçant les icônes par des balises &lt;img&gt; dans projectData.gallery
+      </p>`;
+  } else if (currentTab === 'code') {
+    body.innerHTML = `<div class="modal-code"><pre>${p.code}</pre></div>`;
+  } else {
+    body.innerHTML = p.info;
+  }
+}
+
+function switchTab(tab) {
+  currentTab = tab;
+  renderModal();
+}
+
+function closeModal(e) {
+  if (!e || e.target === document.getElementById('modal')) {
+    document.getElementById('modal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+
+// Keyboard close
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal({target: document.getElementById('modal')});
+});
+
+// Active nav on scroll
+const sections = document.querySelectorAll('section[id], div[id="hero"]');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 120) current = s.id;
+  });
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+});
+</script>
+</body>
+</html>
